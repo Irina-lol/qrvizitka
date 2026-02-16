@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ирина | Цифровой помощник</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0b0f1a;
+      padding: 16px;
+    }
+
+    .card {
+      max-width: 600px;
+      width: 100%;
+      background: rgba(18, 22, 36, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 40px;
+      padding: 40px 32px;
+      box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      position: relative;
+      z-index: 10;
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: linear-gradient(-45deg, #0b0f1a, #1a1f30, #1d2b3a, #14222e);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(110, 86, 255, 0.15);
+      border: 1px solid rgba(110, 86, 255, 0.3);
+      color: #a996ff;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 6px 14px;
+      border-radius: 60px;
+      letter-spacing: 0.3px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+      animation: slideInLeft 0.6s 0.1s both;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      animation: slideInLeft 0.6s 0.2s both;
+    }
+
+    .highlight {
+      color: #b4a6ff;
+      background: linear-gradient(145deg, #b4a6ff, #7f6aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 32px;
+      font-weight: 400;
+      border-left: 3px solid #7f6aff;
+      padding-left: 16px;
+      animation: slideInLeft 0.6s 0.3s both;
+    }
+
+    .phone-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 80px;
+      padding: 12px 18px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      width: fit-content;
+      backdrop-filter: blur(5px);
+      animation: slideInLeft 0.6s 0.4s both;
+      transition: 0.2s;
+    }
+
+    .phone-block:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(127, 106, 255, 0.4);
+    }
+
+    .phone-icon {
+      background: #2a2f44;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b4a6ff;
+      font-size: 18px;
+    }
+
+    .phone-number {
+      font-size: 20px;
+      font-weight: 500;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    .services-title {
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: fadeIn 0.6s 0.5s both;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px;
+      animation: fadeIn 0.6s 0.6s both;
+    }
+
+    .service-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 24px;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      transition: 0.15s;
+      backdrop-filter: blur(5px);
+    }
+
+    .service-item:hover {
+      background: rgba(127, 106, 255, 0.05);
+      border-color: rgba(127, 106, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .service-icon {
+      font-size: 24px;
+      background: rgba(127, 106, 255, 0.1);
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b4a6ff;
+      margin-bottom: 4px;
+    }
+
+    .service-name {
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .service-desc {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+    }
+
+    /* QR-блок (акцент) */
+    .qr-accent {
+      background: linear-gradient(145deg, rgba(127, 106, 255, 0.15), rgba(80, 60, 200, 0.05));
+      border-radius: 28px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(127, 106, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      backdrop-filter: blur(8px);
+      animation: pulseGlow 3s infinite;
+    }
+
+    .qr-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .qr-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+    }
+
+    .qr-title {
+      font-weight: 700;
+      font-size: 22px;
+      color: white;
+      background: linear-gradient(145deg, #ffffff, #d4ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .qr-icon {
+      font-size: 42px;
+      filter: drop-shadow(0 0 10px #7f6aff);
+      animation: softPulse 2s infinite;
+    }
+
+    /* КНОПКА WHATSAPP */
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 18px 20px;
+      border-radius: 60px;
+      border: none;
+      width: 100%;
+      transition: 0.2s;
+      box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.3);
+      animation: slideInLeft 0.6s 0.7s both;
+    }
+
+    .whatsapp-btn:hover {
+      background: #20b859;
+      transform: scale(1.02);
+      box-shadow: 0 15px 25px -5px rgba(37, 211, 102, 0.5);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes softPulse {
+      0% {
+        opacity: 0.9;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+
+      100% {
+        opacity: 0.9;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 5px rgba(127, 106, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(127, 106, 255, 0.6);
+      }
+
+      100% {
+        box-shadow: 0 0 5px rgba(127, 106, 255, 0.2);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .qr-accent {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="animated-bg"></div>
+
+  <div class="card">
+    <div class="badge">⚡ digital-помощник</div>
+
+    <h1>Ирина<br><span class="highlight">Цифровой помощник</span></h1>
+    <div class="subtitle">Сайты + QR-коды под ключ</div>
+
+    <a href="tel:89964128534" class="phone-block" style="text-decoration: none;">
+      <div class="phone-icon">📞</div>
+      <span class="phone-number">8 (996) 412-85-34</span>
+    </a>
+
+    <div class="services-title">✦ Чем могу помочь</div>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">🖌️</div>
+        <span class="service-name">Сайт-визитка</span>
+        <span class="service-desc">HTML / CSS / React</span>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">📱</div>
+        <span class="service-name">Электронная визитка</span>
+        <span class="service-desc">Современный дизайн</span>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🔳</div>
+        <span class="service-name">QR-коды</span>
+        <span class="service-desc">Дизайн / динамика / бренд</span>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">⚙️</div>
+        <span class="service-name">Под ключ</span>
+        <span class="service-desc">Домен + хостинг + настройка</span>
+      </div>
+    </div>
+
+    <div class="qr-accent">
+      <div class="qr-text">
+        <span class="qr-label">Усильте визитку</span>
+        <span class="qr-title">QR-код с аналитикой</span>
+        <span style="color: rgba(255,255,255,0.5); font-size: 13px; margin-top: 4px;">меняйте ссылку в любой
+          момент</span>
+      </div>
+      <div class="qr-icon">🔳✨</div>
+    </div>
+
+    <a href="https://wa.me/79964128534?text=Здравствуйте%2C%20Ирина!%20Нужна%20помощь%20с%20сайтом%20или%20QR-кодом."
+      class="whatsapp-btn" target="_blank">
+      <span>📲</span> Написать в WhatsApp
+    </a>
+
+    <div style="text-align: center; margin-top: 24px; color: rgba(255,255,255,0.2); font-size: 12px;">
+      ✦ быстро · качественно · современно ✦
+    </div>
+  </div>
+</body>
+
+</html>
